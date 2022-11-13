@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_menu"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="gemastik.pendekar.ui.main.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_selfReportFragment"
+            app:destination="@id/selfReportFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right"/>
+        <action
+            android:id="@+id/action_homeFragment_to_CCTVFragment"
+            app:destination="@id/CCTVFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right"/>
+        <action
+            android:id="@+id/action_homeFragment_to_vurnPointFragment"
+            app:destination="@id/vurnPointFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right"/>
+        <action
+            android:id="@+id/action_homeFragment_to_safeRouteFragment"
+            app:destination="@id/safeRouteFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="gemastik.pendekar.ui.main.HelpFragment"
+        android:label="fragment_help"
+        tools:layout="@layout/fragment_help" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="gemastik.pendekar.ui.main.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/selfReportFragment"
+        tools:layout="@layout/fragment_self_report"
+        android:name="gemastik.pendekar.ui.main.home.SelfReportFragment"
+        android:label="SelfReportFragment" >
+        <action
+            android:id="@+id/action_selfReportFragment_to_createReportFragment"
+            app:destination="@id/createReportFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/CCTVFragment"
+        android:name="gemastik.pendekar.ui.main.home.CCTVFragment"
+        tools:layout="@layout/fragment_cctv"
+        android:label="CCTVFragment" />
+    <fragment
+        android:id="@+id/vurnPointFragment"
+        tools:layout="@layout/fragment_vurn_point"
+        android:name="gemastik.pendekar.ui.main.home.VurnPointFragment"
+        android:label="VurnPointFragment" />
+    <fragment
+        android:id="@+id/safeRouteFragment"
+        tools:layout="@layout/fragment_safe_route"
+        android:name="gemastik.pendekar.ui.main.home.SafeRouteFragment"
+        android:label="SafeRouteFragment" />
+    <fragment
+        android:id="@+id/createReportFragment"
+        tools:layout="@layout/fragment_create_report"
+        android:name="gemastik.pendekar.ui.main.home.CreateReportFragment"
+        android:label="CreateReportFragment" />
+</navigation>
