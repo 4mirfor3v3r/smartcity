@@ -13,4 +13,9 @@
         <item name="android:background">@drawable/sel_btn_primary_rounded_15</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="Button.Black24">
+        <item name="android:background">@drawable/sel_btn_black_rounded_24</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>

@@ -52,7 +52,7 @@
     <fragment
         android:id="@+id/selfReportFragment"
         tools:layout="@layout/fragment_self_report"
-        android:name="gemastik.pendekar.ui.main.home.SelfReportFragment"
+        android:name="gemastik.pendekar.ui.main.home.self_report.SelfReportFragment"
         android:label="SelfReportFragment" >
         <action
             android:id="@+id/action_selfReportFragment_to_createReportFragment"
@@ -80,6 +80,6 @@
     <fragment
         android:id="@+id/createReportFragment"
         tools:layout="@layout/fragment_create_report"
-        android:name="gemastik.pendekar.ui.main.home.CreateReportFragment"
+        android:name="gemastik.pendekar.ui.main.home.self_report.CreateReportFragment"
         android:label="CreateReportFragment" />
 </navigation>

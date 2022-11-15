@@ -1,4 +1,4 @@
-package gemastik.pendekar.ui.main.home
+package gemastik.pendekar.ui.main.home.self_report
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

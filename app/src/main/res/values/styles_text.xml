@@ -17,6 +17,9 @@
     <style name="Poppins.Black">
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="Poppins.Black.10sp">
+        <item name="android:textSize">10sp</item>
+    </style>
     <style name="Poppins.Black.12sp">
         <item name="android:textSize">12sp</item>
     </style>
@@ -60,6 +63,9 @@
     <style name="Poppins.500.Black">
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="Poppins.500.Black.10sp">
+        <item name="android:textSize">10sp</item>
+    </style>
     <style name="Poppins.500.Black.12sp">
         <item name="android:textSize">12sp</item>
     </style>
@@ -99,6 +105,9 @@
     <style name="Poppins.600.White">
         <item name="android:textColor">@color/white</item>
     </style>
+    <style name="Poppins.600.White.12sp">
+        <item name="android:textSize">12sp</item>
+    </style>
     <style name="Poppins.600.White.18sp">
         <item name="android:textSize">18sp</item>
     </style>
@@ -108,12 +117,18 @@
     <style name="Poppins.600.White.24sp">
         <item name="android:textSize">24sp</item>
     </style>
+    <style name="Poppins.600.White.28sp">
+        <item name="android:textSize">28sp</item>
+    </style>
 
     <style name="Poppins.600.Black">
         <item name="android:textColor">@color/black</item>
     </style>
     <style name="Poppins.600.Black.10sp">
         <item name="android:textSize">10sp</item>
+    </style>
+    <style name="Poppins.600.Black.12sp">
+        <item name="android:textSize">12sp</item>
     </style>
     <style name="Poppins.600.Black.16sp">
         <item name="android:textSize">16sp</item>
