@@ -1,13 +1,10 @@
-package gemastik.pendekar.ui.main.home
+package gemastik.pendekar.ui.main.home.cctv
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
@@ -15,13 +12,11 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import gemastik.pendekar.R
 import gemastik.pendekar.base.DevFragment
-import gemastik.pendekar.databinding.FragmentVurnPointBinding
-import gemastik.pendekar.ui.main.home.cctv.CCTVFragmentDirections
+import gemastik.pendekar.databinding.FragmentCctvBinding
 import gemastik.pendekar.utils.CustomMarkerCCTVView
-import gemastik.pendekar.utils.CustomMarkerDangerZoneView
 
-class VurnPointFragment : DevFragment<FragmentVurnPointBinding>(R.layout.fragment_vurn_point),
-    OnMapReadyCallback {
+class CCTVFragment : DevFragment<FragmentCctvBinding>(R.layout.fragment_cctv), OnMapReadyCallback,
+    OnMarkerClickListener {
     private val menuController by lazy { activity?.findNavController(R.id.nav_host_fragment_menu) }
 
     private val listMarker: List<LatLng> =
@@ -47,16 +42,38 @@ class VurnPointFragment : DevFragment<FragmentVurnPointBinding>(R.layout.fragmen
 
     override fun onMapReady(googleMap: GoogleMap) {
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(-6.9, 107.6), 14f))
-        val markerIcon1 = CustomMarkerDangerZoneView.getMarkerIcon(
+        googleMap.setOnMarkerClickListener(this)
+        val markerIcon1 = CustomMarkerCCTVView.getMarkerIcon(
             binding.map as ViewGroup,
             "CCTV Jembatan Layang pasupati"
         )
-        val markerIcon2 = CustomMarkerDangerZoneView.getMarkerIcon(
+        val markerIcon2 = CustomMarkerCCTVView.getMarkerIcon(
             binding.map as ViewGroup,
             "CCTV Pasar Sukajadi"
         )
         googleMap.addMarker(MarkerOptions().position(listMarker[0]).icon(markerIcon1))
         googleMap.addMarker(MarkerOptions().position(listMarker[1]).icon(markerIcon2))
+    }
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        if (marker.position == listMarker[0]) {
+            menuController?.navigate(
+                CCTVFragmentDirections.actionCCTVFragmentToCCTVCameraFragment(
+                    cctvId = 0,
+                    title = marker.title ?: "",
+                    address = "Tamansari, Kec. Bandung Wetan, Kota Bandung, Jawa Barat 40116"
+                )
+            )
+        } else if (marker.position == listMarker[1]) {
+            menuController?.navigate(
+                CCTVFragmentDirections.actionCCTVFragmentToCCTVCameraFragment(
+                    cctvId = 1,
+                    title = marker.title ?: "",
+                    address = "Jl. Sukajadi No.26, Sukabungah, Kec. Sukajadi, Kota Bandung, Jawa Barat 40162"
+                )
+            )
+        }
+        return true
     }
 
 }

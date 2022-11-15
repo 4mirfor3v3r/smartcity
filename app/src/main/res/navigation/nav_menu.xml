@@ -64,9 +64,17 @@
     </fragment>
     <fragment
         android:id="@+id/CCTVFragment"
-        android:name="gemastik.pendekar.ui.main.home.CCTVFragment"
+        android:name="gemastik.pendekar.ui.main.home.cctv.CCTVFragment"
         tools:layout="@layout/fragment_cctv"
-        android:label="CCTVFragment" />
+        android:label="CCTVFragment" >
+        <action
+            android:id="@+id/action_CCTVFragment_to_CCTVCameraFragment"
+            app:destination="@id/CCTVCameraFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/vurnPointFragment"
         tools:layout="@layout/fragment_vurn_point"
@@ -82,4 +90,20 @@
         tools:layout="@layout/fragment_create_report"
         android:name="gemastik.pendekar.ui.main.home.self_report.CreateReportFragment"
         android:label="CreateReportFragment" />
+    <fragment
+        android:id="@+id/CCTVCameraFragment"
+        tools:layout="@layout/fragment_cctv_camera"
+        android:name="gemastik.pendekar.ui.main.home.cctv.CCTVCameraFragment"
+        android:label="CCTVCameraFragment" >
+        <argument
+            android:name="cctvId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="address"
+            app:argType="string" />
+    </fragment>
 </navigation>

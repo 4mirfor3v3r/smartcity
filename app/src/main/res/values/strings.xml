@@ -5,4 +5,7 @@
     <string name="label_home">Beranda</string>
     <string name="label_help">Bantuan</string>
     <string name="label_account">Akun</string>
+    <string name="location_permission_denied">Izin lokasi dibatalkan</string>
+    <string name="permission_required_toast">Izin lokasi diperlukan</string>
+    <string name="permission_rationale_location">Meminta Izin akses lokasi</string>
 </resources>
