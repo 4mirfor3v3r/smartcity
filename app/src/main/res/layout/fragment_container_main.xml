@@ -26,6 +26,7 @@
             app:itemIconTint="@color/white"
             app:itemRippleColor="@color/primaryDark"
             app:itemTextColor="@color/white"
+            app:itemActiveIndicatorStyle="@style/BottomNavigation.Indicator"
             app:labelVisibilityMode="selected"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

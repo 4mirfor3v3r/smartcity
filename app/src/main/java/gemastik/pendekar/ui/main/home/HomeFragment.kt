@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.navigation.findNavController
 import gemastik.pendekar.R
 import gemastik.pendekar.base.DevFragment
@@ -35,6 +36,20 @@ class HomeFragment : DevFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
             btnSafeRoute.setOnClickListener {
                 menuController?.navigate(HomeFragmentDirections.actionHomeFragmentToSafeRouteFragment())
+            }
+            btnMenu.setOnClickListener {
+                val popupMenu: PopupMenu = PopupMenu(context,it)
+                popupMenu.menuInflater.inflate(R.menu.menu_home,popupMenu.menu)
+                popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+                    when(item.itemId) {
+//                        R.id.action_setting ->
+//
+                        R.id.action_logout ->
+                            menuController?.popBackStack()
+                    }
+                    true
+                })
+                popupMenu.show()
             }
         }
     }

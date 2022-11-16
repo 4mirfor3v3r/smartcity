@@ -1,11 +1,20 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('D:\\Keystore\\gemastik.jks')
+            storePassword 'GemastikLancar'
+            keyAlias 'gemastik'
+            keyPassword 'GemastikLancar'
+        }
+    }
     namespace 'gemastik.pendekar'
     compileSdk 33
 
@@ -23,6 +32,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     buildFeatures{
@@ -62,6 +72,13 @@ dependencies {
 
     // Shared Preferences
     implementation "at.favre.lib:armadillo:1.0.0"
+
+    // Database
+    implementation "androidx.room:room-runtime:2.4.3"
+    kapt "androidx.room:room-compiler:2.4.3"
+    implementation "androidx.room:room-ktx:2.4.3"
+    implementation "androidx.room:room-rxjava3:2.4.3"
+    implementation 'com.android.support:multidex:1.0.3'
 
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">pendekar</string>
+    <string name="app_name">Pendekar Baraya</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="label_home">Beranda</string>
@@ -8,4 +8,10 @@
     <string name="location_permission_denied">Izin lokasi dibatalkan</string>
     <string name="permission_required_toast">Izin lokasi diperlukan</string>
     <string name="permission_rationale_location">Meminta Izin akses lokasi</string>
+
+
+    <string-array name="accountType">
+        <item>Pengguna</item>
+        <item>Polisi</item>
+    </string-array>
 </resources>

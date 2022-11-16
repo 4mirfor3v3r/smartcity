@@ -1,5 +1,6 @@
 package gemastik.pendekar.ui.main.home.self_report
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -26,6 +27,13 @@ class HistoryReportAdapter : RecyclerView.Adapter<HistoryReportAdapter.ViewHolde
 
     override fun getItemCount() = listData.size
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateList(list: List<HistoryReportModel>) {
+        this.listData.clear()
+        this.listData.addAll(list)
+        notifyDataSetChanged()
+    }
+
     fun add(data:HistoryReportModel){
         this.listData.add(data)
         notifyItemInserted(listData.lastIndex)
@@ -43,11 +51,12 @@ class HistoryReportAdapter : RecyclerView.Adapter<HistoryReportAdapter.ViewHolde
                 tvLocation.text = data.reportAddress
                 tvDate.text = data.reportDate
 
-                tvStatus.text = data.reportStatus.title
+                tvStatus.text = data.reportStatus?.title
                 when(data.reportStatus){
                     ReportStatus.SUCCESS -> tvStatus.setTextColor(ContextCompat.getColor(binding.root.context,R.color.green))
                     ReportStatus.FAILURE -> tvStatus.setTextColor(ContextCompat.getColor(binding.root.context,R.color.primary))
                     ReportStatus.PROCESS -> tvStatus.setTextColor(ContextCompat.getColor(binding.root.context,R.color.blue))
+                    else -> tvStatus.setTextColor(ContextCompat.getColor(binding.root.context,R.color.blue))
                 }
             }
         }

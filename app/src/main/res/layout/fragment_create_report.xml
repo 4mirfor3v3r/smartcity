@@ -50,7 +50,7 @@
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nama Kejadian"
+                android:hint="Nama Kejadian*"
                 app:boxStrokeColor="@color/primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,15 +59,16 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etLocation"
+                style="TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tempat Kejadian"
+                android:layout_marginTop="2dp"
+                android:hint="Tempat Kejadian*"
                 app:boxStrokeColor="@color/primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -76,15 +77,16 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etDate"
+                style="TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tanggal Kejadian"
+                android:layout_marginTop="2dp"
+                android:hint="Tanggal Kejadian*"
                 app:boxStrokeColor="@color/primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -92,50 +94,78 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
+                    android:drawableEnd="@drawable/ic_outline_date"
+                    android:drawableTint="@color/primary"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:inputType="date" />
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etPhoto"
+            <LinearLayout
+                android:id="@+id/btnPhoto"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Bukti Foto"
-                app:boxStrokeColor="@color/primary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/etDate">
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginTop="12dp"
+                android:paddingVertical="24dp"
+                android:background="@drawable/bg_pick_photo"
+                app:layout_constraintTop_toBottomOf="@id/etDate"
+                android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:src="@drawable/ic_add_circle_round"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp" />
+                <TextView
+                    style="@style/Poppins.500.Primary.12sp"
+                    android:text="Tambahkan Gambar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/etPhoto"-->
+<!--                style="TextInputLayout"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="2dp"-->
+<!--                android:hint="Bukti Foto"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/etDate">-->
+
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:inputType="text" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etNote"
+                style="TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Catatan Tambahan"
+                android:layout_marginTop="12dp"
                 app:boxStrokeColor="@color/primary"
+                android:hint="Catatan Tambahan"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/etPhoto">
+                app:layout_constraintTop_toBottomOf="@id/btnPhoto">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
                     android:inputType="textMultiLine" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSubmit"
                 style="@style/Button.Primary15"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
+                android:enabled="false"
                 android:text="Buat Laporan"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

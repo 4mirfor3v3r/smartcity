@@ -1,5 +1,6 @@
 package gemastik.pendekar.ui.auth
 
+import android.util.Patterns
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.findNavController
 import gemastik.pendekar.R
@@ -16,10 +17,15 @@ class LoginFragment : DevFragment<FragmentLoginBinding>(R.layout.fragment_login)
     override fun initUI() {  }
 
     override fun initAction() {
-        binding.etEmail.editText?.doAfterTextChanged { text ->
-            if (!text.isNullOrEmpty()){
-                binding.btnLogin.isEnabled = true
-            }
+        verifyEmail()
+        verifyNewPassword("")
+        binding.etEmail.editText?.doAfterTextChanged {
+            verifyEmail()
+            binding.btnLogin.isEnabled = isVerified()
+        }
+        binding.etPassword.editText?.doAfterTextChanged { text ->
+            verifyNewPassword(text.toString())
+            binding.btnLogin.isEnabled = isVerified()
         }
 
         binding.tvRegister.setOnClickListener {
@@ -33,6 +39,27 @@ class LoginFragment : DevFragment<FragmentLoginBinding>(R.layout.fragment_login)
 
     override fun initObserver() {
 
+    }
+
+    private fun verifyEmail() {
+        if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.editText?.text.toString()).matches()) {
+            binding.etEmail.error = "Gunakan format email yang benar"
+        } else {
+            binding.etEmail.error = null
+        }
+    }
+
+    private fun verifyNewPassword(text: String) {
+        if (text.length < 8 || text == text.lowercase() || text == text.uppercase()) {
+            binding.etPassword.error = "Minimal 8 karakter, dan mengandung huruf besar dan kecil"
+        } else {
+            binding.etPassword.error = null
+        }
+    }
+
+    private fun isVerified(): Boolean {
+        return binding.etEmail.error == null &&
+                binding.etPassword.error == null
     }
 
 }

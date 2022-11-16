@@ -12,22 +12,34 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import gemastik.pendekar.R
 import gemastik.pendekar.base.DevFragment
+import gemastik.pendekar.data.model.SearchHistoryCCTVModel
 import gemastik.pendekar.databinding.FragmentCctvBinding
 import gemastik.pendekar.utils.CustomMarkerCCTVView
 
-class CCTVFragment : DevFragment<FragmentCctvBinding>(R.layout.fragment_cctv), OnMapReadyCallback,
-    OnMarkerClickListener {
+class CCTVFragment : DevFragment<FragmentCctvBinding>(R.layout.fragment_cctv), OnMapReadyCallback, OnMarkerClickListener {
     private val menuController by lazy { activity?.findNavController(R.id.nav_host_fragment_menu) }
-
-    private val listMarker: List<LatLng> =
-        listOf(LatLng(-6.900243, 107.602267), LatLng(-6.894551, 107.597121))
+    private lateinit var adapter: CCTVSearchAdapter
+    private val listMarker: List<SearchHistoryCCTVModel> = listOf(
+        SearchHistoryCCTVModel(0,"CCTV Jembatan Layang pasupati","Tamansari, Kec. Bandung Wetan, Kota Bandung, Jawa Barat 40116",-6.900243, 107.602264),
+        SearchHistoryCCTVModel(1,"CCTV Pasar Sukajadi","Jl. Sukajadi No.26, Sukabungah, Kec. Sukajadi, Kota Bandung, Jawa Barat 40162",-6.894551, 107.597121),
+    )
 
     override fun initData() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        adapter = CCTVSearchAdapter {
+            menuController?.navigate(
+                CCTVFragmentDirections.actionCCTVFragmentToCCTVCameraFragment(
+                    cctvId = it.id?:0,
+                    title = it.searchName,
+                    address = it.address
+                )
+            )
+        }
     }
 
     override fun initUI() {
+        binding.rvSearchResult.adapter = adapter
     }
 
     override fun initAction() {
@@ -37,41 +49,30 @@ class CCTVFragment : DevFragment<FragmentCctvBinding>(R.layout.fragment_cctv), O
     }
 
     override fun initObserver() {
-
+        adapter.updateList(listMarker)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(-6.9, 107.6), 14f))
         googleMap.setOnMarkerClickListener(this)
-        val markerIcon1 = CustomMarkerCCTVView.getMarkerIcon(
-            binding.map as ViewGroup,
-            "CCTV Jembatan Layang pasupati"
-        )
-        val markerIcon2 = CustomMarkerCCTVView.getMarkerIcon(
-            binding.map as ViewGroup,
-            "CCTV Pasar Sukajadi"
-        )
-        googleMap.addMarker(MarkerOptions().position(listMarker[0]).icon(markerIcon1))
-        googleMap.addMarker(MarkerOptions().position(listMarker[1]).icon(markerIcon2))
+
+        listMarker.forEach {
+            val markerIcon = CustomMarkerCCTVView.getMarkerIcon(binding.map as ViewGroup, it.searchName)
+            googleMap.addMarker(MarkerOptions().position(LatLng(it.lat, it.lng)).icon(markerIcon))
+        }
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        if (marker.position == listMarker[0]) {
-            menuController?.navigate(
-                CCTVFragmentDirections.actionCCTVFragmentToCCTVCameraFragment(
-                    cctvId = 0,
-                    title = marker.title ?: "",
-                    address = "Tamansari, Kec. Bandung Wetan, Kota Bandung, Jawa Barat 40116"
+        listMarker.forEachIndexed { i, data ->
+            if (marker.position == LatLng(listMarker[i].lat,listMarker[i].lng)){
+                menuController?.navigate(
+                    CCTVFragmentDirections.actionCCTVFragmentToCCTVCameraFragment(
+                        cctvId = i,
+                        title = data.searchName,
+                        address = data.address
+                    )
                 )
-            )
-        } else if (marker.position == listMarker[1]) {
-            menuController?.navigate(
-                CCTVFragmentDirections.actionCCTVFragmentToCCTVCameraFragment(
-                    cctvId = 1,
-                    title = marker.title ?: "",
-                    address = "Jl. Sukajadi No.26, Sukabungah, Kec. Sukajadi, Kota Bandung, Jawa Barat 40162"
-                )
-            )
+            }
         }
         return true
     }

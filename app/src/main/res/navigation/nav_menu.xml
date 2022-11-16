@@ -78,7 +78,7 @@
     <fragment
         android:id="@+id/vurnPointFragment"
         tools:layout="@layout/fragment_vurn_point"
-        android:name="gemastik.pendekar.ui.main.home.VurnPointFragment"
+        android:name="gemastik.pendekar.ui.main.home.danger_area.VurnPointFragment"
         android:label="VurnPointFragment" />
     <fragment
         android:id="@+id/safeRouteFragment"

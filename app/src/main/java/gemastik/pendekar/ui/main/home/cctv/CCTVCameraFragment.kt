@@ -2,6 +2,7 @@ package gemastik.pendekar.ui.main.home.cctv
 
 import android.net.Uri
 import android.widget.MediaController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import gemastik.pendekar.R
 import gemastik.pendekar.base.DevFragment
@@ -10,6 +11,7 @@ import gemastik.pendekar.databinding.FragmentCctvCameraBinding
 
 class CCTVCameraFragment : DevFragment<FragmentCctvCameraBinding>(R.layout.fragment_cctv_camera){
     private val args:CCTVCameraFragmentArgs by navArgs()
+    private val menuController by lazy { activity?.findNavController(R.id.nav_host_fragment_menu) }
 
     override fun initData() {
 
@@ -32,7 +34,7 @@ class CCTVCameraFragment : DevFragment<FragmentCctvCameraBinding>(R.layout.fragm
 
     override fun initAction() {
         binding.btnBack.setOnClickListener {
-
+            menuController?.popBackStack()
         }
     }
 
