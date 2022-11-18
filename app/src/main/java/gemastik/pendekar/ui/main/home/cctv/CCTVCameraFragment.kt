@@ -23,22 +23,25 @@ class CCTVCameraFragment : DevFragment<FragmentCctvCameraBinding>(R.layout.fragm
         binding.tvAddress.text = args.address
 
         //Creating MediaController
-//        val mediaController = MediaController(binding.videoCCTV.context)
-//        mediaController.hide()
-//        val path = "android.resource://" + context?.packageName + "/raw/cctv_${args.cctvId}"
-//        mediaController.setAnchorView(binding.videoCCTV)
-////        binding.videoCCTV.setMediaController(mediaController)
-//        binding.videoCCTV.setVideoPath(path)
-//        binding.videoCCTV.requestFocus()
-//        binding.videoCCTV.start()
-        Glide.with(requireContext())
-            .load(R.raw.cctv)
-            .into(binding.ivCCTV)
+        val mediaController = MediaController(binding.videoCCTV.context)
+        mediaController.hide()
+        val path = "android.resource://" + context?.packageName + "/raw/cctv_${args.cctvId}"
+        mediaController.setAnchorView(binding.videoCCTV)
+//        binding.videoCCTV.setMediaController(mediaController)
+        binding.videoCCTV.setVideoPath(path)
+        binding.videoCCTV.requestFocus()
+        binding.videoCCTV.start()
+//        Glide.with(requireContext())
+//            .load(R.raw.cctv)
+//            .into(binding.ivCCTV)
     }
 
     override fun initAction() {
         binding.btnBack.setOnClickListener {
             menuController?.popBackStack()
+        }
+        binding.videoCCTV.setOnPreparedListener {
+            it.isLooping = true
         }
     }
 
