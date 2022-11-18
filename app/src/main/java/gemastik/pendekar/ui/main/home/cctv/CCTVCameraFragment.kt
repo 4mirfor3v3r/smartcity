@@ -4,6 +4,7 @@ import android.net.Uri
 import android.widget.MediaController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import gemastik.pendekar.R
 import gemastik.pendekar.base.DevFragment
 import gemastik.pendekar.databinding.FragmentCctvCameraBinding
@@ -22,14 +23,17 @@ class CCTVCameraFragment : DevFragment<FragmentCctvCameraBinding>(R.layout.fragm
         binding.tvAddress.text = args.address
 
         //Creating MediaController
-        val mediaController = MediaController(binding.videoCCTV.context)
-        mediaController.hide()
-        val path = "android.resource://" + context?.packageName + "/raw/cctv_${args.cctvId}"
-        mediaController.setAnchorView(binding.videoCCTV)
-//        binding.videoCCTV.setMediaController(mediaController)
-        binding.videoCCTV.setVideoPath(path)
-        binding.videoCCTV.requestFocus()
-        binding.videoCCTV.start()
+//        val mediaController = MediaController(binding.videoCCTV.context)
+//        mediaController.hide()
+//        val path = "android.resource://" + context?.packageName + "/raw/cctv_${args.cctvId}"
+//        mediaController.setAnchorView(binding.videoCCTV)
+////        binding.videoCCTV.setMediaController(mediaController)
+//        binding.videoCCTV.setVideoPath(path)
+//        binding.videoCCTV.requestFocus()
+//        binding.videoCCTV.start()
+        Glide.with(requireContext())
+            .load(R.raw.cctv)
+            .into(binding.ivCCTV)
     }
 
     override fun initAction() {

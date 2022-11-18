@@ -83,7 +83,7 @@
     <fragment
         android:id="@+id/safeRouteFragment"
         tools:layout="@layout/fragment_safe_route"
-        android:name="gemastik.pendekar.ui.main.home.SafeRouteFragment"
+        android:name="gemastik.pendekar.ui.main.home.safe_area.SafeRouteFragment"
         android:label="SafeRouteFragment" />
     <fragment
         android:id="@+id/createReportFragment"

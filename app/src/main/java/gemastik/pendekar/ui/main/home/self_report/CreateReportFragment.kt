@@ -58,6 +58,9 @@ class CreateReportFragment :
                     vm.addReport(report)
                 }
             }
+            btnPhoto.setOnClickListener {
+                Toast.makeText(context,"Fitur belum tersedia, silahkan tunggu update",Toast.LENGTH_SHORT).show()
+            }
             etName.editText?.doAfterTextChanged {
                 report.reportTitle = it.toString()
                 btnSubmit.isEnabled = isInputValid()

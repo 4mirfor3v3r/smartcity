@@ -3,10 +3,6 @@ package gemastik.pendekar.ui.main.home.danger_area
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -16,17 +12,11 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import gemastik.pendekar.R
 import gemastik.pendekar.base.DevFragment
-import gemastik.pendekar.data.model.SearchHistoryCCTVModel
 import gemastik.pendekar.data.model.SearchHistoryDangerModel
 import gemastik.pendekar.databinding.FragmentVurnPointBinding
-import gemastik.pendekar.ui.main.home.SafeRouteFragment
-import gemastik.pendekar.ui.main.home.cctv.CCTVFragmentDirections
-import gemastik.pendekar.ui.main.home.cctv.CCTVSearchAdapter
-import gemastik.pendekar.utils.CustomMarkerCCTVView
 import gemastik.pendekar.utils.CustomMarkerDangerZoneView
 import gemastik.pendekar.utils.PermissionUtils
 
