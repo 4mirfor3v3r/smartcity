@@ -20,7 +20,7 @@ class CCTVFragment : DevFragment<FragmentCctvBinding>(R.layout.fragment_cctv), O
     private val menuController by lazy { activity?.findNavController(R.id.nav_host_fragment_menu) }
     private lateinit var adapter: CCTVSearchAdapter
     private val listMarker: List<SearchHistoryCCTVModel> = listOf(
-        SearchHistoryCCTVModel(0,"CCTV Jembatan Layang pasupati","Tamansari, Kec. Bandung Wetan, Kota Bandung, Jawa Barat 40116",-6.900243, 107.602264),
+        SearchHistoryCCTVModel(0,"CCTV Cipaganti","Jl. Raden AA. Wiranata Kusumah No.29-31, Pasir Kaliki, Kec. Cicendo, Kota Bandung, Jawa Barat 40171",-6.900243, 107.602264),
         SearchHistoryCCTVModel(1,"CCTV Pasar Sukajadi","Jl. Sukajadi No.26, Sukabungah, Kec. Sukajadi, Kota Bandung, Jawa Barat 40162",-6.894551, 107.597121),
     )
 

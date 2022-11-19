@@ -45,8 +45,7 @@ class SafeRouteFragment : DevFragment<FragmentSafeRouteBinding>(R.layout.fragmen
     private val listMarker: List<SearchHistoryDangerModel> = listOf(
         SearchHistoryDangerModel(
             0,
-            "CCTV Jembatan Layang pasupati",
-            "Tamansari, Kec. Bandung Wetan, Kota Bandung, Jawa Barat 40116",
+            "CCTV Cipaganti","Jl. Raden AA. Wiranata Kusumah No.29-31, Pasir Kaliki, Kec. Cicendo, Kota Bandung, Jawa Barat 40171",
             -6.900243,
             107.602264
         ),
