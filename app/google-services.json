@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "514329964343",
+    "project_id": "pkmkc-sinar",
+    "storage_bucket": "pkmkc-sinar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514329964343:android:adbffa4de4e7e5513bf4b2",
+        "android_client_info": {
+          "package_name": "gemastik.pendekar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "514329964343-lmcrjpfb1qk866407gge6pvq39mi0kv2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJNY_-Uv21WwfnTN8paU_QoyTOXCuWgYA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "514329964343-lmcrjpfb1qk866407gge6pvq39mi0kv2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

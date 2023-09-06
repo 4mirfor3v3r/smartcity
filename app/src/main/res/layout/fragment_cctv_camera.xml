@@ -5,12 +5,13 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.home.cctv.CCTVCameraFragment">
+        tools:context=".ui.main.home.cctv_camera.CCTVCameraFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary"
             android:paddingHorizontal="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -21,13 +22,14 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_arrow_back"
+                android:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/toolbar_title"
-                style="@style/Poppins.600.Black.18sp"
+                style="@style/Poppins.600.White.18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -43,23 +45,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-            <VideoView
+            <com.google.android.exoplayer2.ui.PlayerView
                 android:id="@+id/videoCCTV"
-                android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="H,1.1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-<!--            <androidx.appcompat.widget.AppCompatImageView-->
-<!--                android:id="@+id/ivCCTV"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                tools:src="@tools:sample/backgrounds/scenic"-->
-<!--                android:scaleType="centerCrop"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="240dp" />-->
 
             <TextView
                 android:id="@+id/tvCCTVName"
@@ -70,15 +63,6 @@
                 android:layout_marginTop="24dp"
                 app:layout_constraintTop_toBottomOf="@id/videoCCTV"
                 tools:text="Taman Cempaka_04" />
-
-            <TextView
-                android:id="@+id/tvAddress"
-                style="@style/Poppins.500.Black.12sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                tools:text="Jalan Taman Cempaka,Merdeka, \nSumur Bandung, Bandung\n40113"
-                app:layout_constraintTop_toBottomOf="@id/tvCCTVName" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

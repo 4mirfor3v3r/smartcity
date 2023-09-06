@@ -32,32 +32,13 @@ import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import gemastik.pendekar.R
 import gemastik.pendekar.base.DevFragment
-import gemastik.pendekar.data.model.SearchHistoryDangerModel
 import gemastik.pendekar.databinding.FragmentSafeRouteBinding
-import gemastik.pendekar.ui.main.home.self_report.ReportViewModel
 import gemastik.pendekar.utils.*
 
 class SafeRouteFragment : DevFragment<FragmentSafeRouteBinding>(R.layout.fragment_safe_route),
     OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
     override val vm: SafeRouteViewModel by lazy { getViewModel() }
     private val menuController by lazy { activity?.findNavController(R.id.nav_host_fragment_menu) }
-
-    private val listMarker: List<SearchHistoryDangerModel> = listOf(
-        SearchHistoryDangerModel(
-            0,
-            "CCTV Cipaganti","Jl. Raden AA. Wiranata Kusumah No.29-31, Pasir Kaliki, Kec. Cicendo, Kota Bandung, Jawa Barat 40171",
-            -6.900243,
-            107.602264
-        ),
-        SearchHistoryDangerModel(
-            1,
-            "CCTV Pasar Sukajadi",
-            "Jl. Sukajadi No.26, Sukabungah, Kec. Sukajadi, Kota Bandung, Jawa Barat 40162",
-            -6.894551,
-            107.597121
-        ),
-    )
-
     private var myLocation = LatLng(-6.9, 107.6)
     private var permissionDenied = false
 
@@ -82,6 +63,7 @@ class SafeRouteFragment : DevFragment<FragmentSafeRouteBinding>(R.layout.fragmen
         binding.etSearch.setOnClickListener{
             launchSearch()
         }
+        vm.getListCCTV()
     }
 
     override fun initObserver() {
@@ -116,12 +98,29 @@ class SafeRouteFragment : DevFragment<FragmentSafeRouteBinding>(R.layout.fragmen
         map = googleMap
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(-6.9, 107.6), 14f))
-        listMarker.forEach {
-            val markerIcon =
-                CustomMarkerDangerZoneView.getMarkerIcon(binding.map as ViewGroup, it.searchName)
-            googleMap.addMarker(MarkerOptions().position(LatLng(it.lat, it.lng)).icon(markerIcon))
+        vm.listCCTV.observe(viewLifecycleOwner){
+            when(it){
+                is DevState.Loading -> {
+                }
+                is DevState.Empty -> {
+                }
+                is DevState.Success -> {
+                    it.data.forEach {cctv ->
+                        val markerIcon = CustomMarkerDangerZoneView.getMarkerIcon(
+                            binding.map as ViewGroup,
+                            cctv.status
+                        )
+                        googleMap.addMarker(
+                            MarkerOptions().position(LatLng(cctv.lat.toDouble(), cctv.lng.toDouble())).icon(markerIcon)
+                        )
+                    }
+                }
+                is DevState.Failure -> {}
+                is DevState.Default -> {}
+            }
         }
         enableMyLocation()
+        getLocation()
     }
 
     override fun onMyLocationButtonClick(): Boolean {
@@ -143,7 +142,23 @@ class SafeRouteFragment : DevFragment<FragmentSafeRouteBinding>(R.layout.fragmen
             Activity.RESULT_OK -> {
                 data?.let {
                     val place = Autocomplete.getPlaceFromIntent(data)
-                    place.latLng?.let { it1 -> vm.getRoute(myLocation, it1, listMarker.map { it2->LatLng(it2.lat,it2.lng) }) }
+                    val listCCTV = vm.listCCTV.value
+                    if(listCCTV is DevState.Success) {
+                        place.latLng?.let { it1 ->
+                            vm.getRoute(
+                                myLocation,
+                                it1,
+                                listCCTV.data
+                                    .filter { it3 -> it3.status == "DANGER" }
+                                    .map { it2 -> LatLng(it2.lat.toDouble(), it2.lng.toDouble()) })
+                        }
+                    }else{
+                        Toast.makeText(
+                            context,
+                            "Gagal mendapatkan data CCTV harap muat ulang halaman",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
             AutocompleteActivity.RESULT_ERROR -> {
@@ -250,6 +265,11 @@ class SafeRouteFragment : DevFragment<FragmentSafeRouteBinding>(R.layout.fragmen
         } else {
             requestPermissions()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        vm.clearDisposable()
     }
 
     companion object {

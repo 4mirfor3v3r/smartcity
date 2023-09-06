@@ -28,9 +28,12 @@ class MainRepositoryImpl(private val mainDao: ReportDao, private val mainApi: Ma
         destination: LatLng,
         avoidAreas: List<LatLng>
     ): Single<RouteResponse> {
-        var avoidArea = ""
-        avoidAreas.forEach {
-            avoidArea="${avoidArea}bbox:${it.longitude - 0.0004},${it.latitude + 0.0004},${it.longitude + 0.0004},${it.latitude - 0.0004}|"
+        var avoidArea:String? = null
+        if(avoidAreas.isNotEmpty()) {
+            avoidAreas.forEach {
+                avoidArea =
+                    "${avoidArea}bbox:${it.longitude - 0.0004},${it.latitude + 0.0004},${it.longitude + 0.0004},${it.latitude - 0.0004}|"
+            }
         }
         return mainApi.getRoute(
             origin = "${origin.latitude},${origin.longitude}",

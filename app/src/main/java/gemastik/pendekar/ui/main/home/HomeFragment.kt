@@ -1,18 +1,14 @@
 package gemastik.pendekar.ui.main.home
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.navigation.findNavController
 import gemastik.pendekar.R
 import gemastik.pendekar.base.DevFragment
 import gemastik.pendekar.databinding.FragmentHomeBinding
+import gemastik.pendekar.utils.DevState
+import gemastik.pendekar.utils.getViewModel
 
 class HomeFragment : DevFragment<FragmentHomeBinding>(R.layout.fragment_home) {
-
+    override val vm: HomeViewModel by lazy { getViewModel() }
     private val menuController by lazy { activity?.findNavController(R.id.nav_host_fragment_menu) }
 
     override fun initData() {
@@ -28,33 +24,26 @@ class HomeFragment : DevFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             btnSelfReport.setOnClickListener {
                 menuController?.navigate(HomeFragmentDirections.actionHomeFragmentToSelfReportFragment())
             }
-            btnDangerousPoint.setOnClickListener {
-                menuController?.navigate(HomeFragmentDirections.actionHomeFragmentToVurnPointFragment())
-            }
             btnCCTV.setOnClickListener {
-                menuController?.navigate(HomeFragmentDirections.actionHomeFragmentToCCTVFragment())
+                menuController?.navigate(HomeFragmentDirections.actionHomeFragmentToListCCTVFragment())
             }
             btnSafeRoute.setOnClickListener {
                 menuController?.navigate(HomeFragmentDirections.actionHomeFragmentToSafeRouteFragment())
             }
-            btnMenu.setOnClickListener {
-                val popupMenu: PopupMenu = PopupMenu(context,it)
-                popupMenu.menuInflater.inflate(R.menu.menu_home,popupMenu.menu)
-                popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
-                    when(item.itemId) {
-//                        R.id.action_setting ->
-//
-                        R.id.action_logout ->
-                            menuController?.popBackStack()
-                    }
-                    true
-                })
-                popupMenu.show()
-            }
         }
+        vm.getTotalCrime()
     }
 
     override fun initObserver() {
+        vm.totalCrime.observe(viewLifecycleOwner){
+            when(it){
+                is DevState.Success ->{
+                    binding.tvCrimeCount.text = it.data.toString()
+                }
+                else ->{
 
+                }
+            }
+        }
     }
 }

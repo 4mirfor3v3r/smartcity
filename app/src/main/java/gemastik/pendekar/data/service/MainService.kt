@@ -12,7 +12,7 @@ interface MainService {
         @Query("origin", encoded = true) origin: String,
         @Query("destination", encoded = true) destination: String,
         @Query("transportMode", encoded = true) transportMode: String = "car",
-        @Query("avoid[areas]", encoded = true) avoidArea: String,
+        @Query("avoid[areas]", encoded = true) avoidArea: String?,
         @Query("return", encoded = true) polyline: String = "polyline"
     ):Single<RouteResponse>
 }

@@ -3,6 +3,7 @@ package gemastik.pendekar.data.api
 import com.google.gson.GsonBuilder
 import gemastik.pendekar.BuildConfig
 import gemastik.pendekar.data.service.MainService
+import gemastik.pendekar.data.service.RestService
 import okhttp3.Authenticator
 import okhttp3.Dispatcher
 import okhttp3.Interceptor
@@ -58,10 +59,11 @@ object NetworkConfig {
     }
 
     private val okHttpClient = createOkHttpClient(
-        interceptors = arrayOf(AppInterceptor()),
+        interceptors = arrayOf(AppInterceptor(), HttpLoggingInterceptor()),
         authenticator = null,
         showDebugLog = BuildConfig.DEBUG
     )
 
     val apiService = createService(MainService::class.java, okHttpClient, BuildConfig.BASE_URL)
+    val restApiService = createService(RestService::class.java, okHttpClient, BuildConfig.REST_BASE_URL)
 }
