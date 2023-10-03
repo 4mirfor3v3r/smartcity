@@ -6,17 +6,25 @@ import androidx.lifecycle.viewModelScope
 import gemastik.pendekar.base.DevViewModel
 import gemastik.pendekar.data.model.HistoryReportModel
 import gemastik.pendekar.data.repository.MainRepository
+import gemastik.pendekar.data.repository.RestRepository
 import gemastik.pendekar.utils.DevState
-import gemastik.pendekar.utils.logDebug
 import gemastik.pendekar.utils.logError
+import gemastik.pendekar.utils.singleScheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.File
 
-class ReportViewModel(disposable: CompositeDisposable, private val repo: MainRepository) :
+class ReportViewModel(disposable: CompositeDisposable, private val repo: MainRepository, private val restRepo: RestRepository) :
     DevViewModel(disposable) {
+    private val disposable = CompositeDisposable()
+
+    private val _pickedImage =
+        MutableLiveData<DevState<File>>(DevState.default())
+    val pickedImage: LiveData<DevState<File>>
+        get() = _pickedImage
 
     private val _historyReportResult =
         MutableLiveData<DevState<List<HistoryReportModel>>>(DevState.default())
@@ -33,6 +41,11 @@ class ReportViewModel(disposable: CompositeDisposable, private val repo: MainRep
     val createAllReportResult: LiveData<DevState<List<HistoryReportModel>>>
         get() = _createAllReportResult
 
+
+    private val _listReport = MutableLiveData<DevState<List<HistoryReportModel>>>(DevState.default())
+    val listReport: LiveData<DevState<List<HistoryReportModel>>>
+        get() = _listReport
+
     fun getAllReport() {
         _historyReportResult.value = DevState.loading()
         viewModelScope.launch {
@@ -46,12 +59,48 @@ class ReportViewModel(disposable: CompositeDisposable, private val repo: MainRep
         }
     }
 
-    fun addReport(data: HistoryReportModel) {
+    fun addReport(data: HistoryReportModel, imagePicked: File) {
         _createReportResult.value = DevState.loading()
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) { repo.addReport(data) }
-            _createReportResult.value = DevState.success(data)
-        }
+        restRepo.addReport(data, imagePicked)
+            .compose(singleScheduler())
+            .subscribe({
+                _createReportResult.value = DevState.success(it.data)
+            },{
+                if (it is HttpException) {
+                    val errorBody = it.response()?.errorBody()?.string()
+                    if (errorBody != null) {
+                        _createReportResult.value = DevState.Failure(null, errorBody)
+                        messageError.value = errorBody
+                    }
+                } else {
+                    val errorMessage = it.localizedMessage
+                    logError(errorMessage)
+
+                    _createReportResult.value = DevState.fail(null, errorMessage)
+                    messageError.value = errorMessage
+                }
+            }).let(disposable::add)
+    }
+
+    fun getListReport() {
+        _listReport.value = DevState.loading()
+        restRepo.getAllReportHistory()
+            .compose(singleScheduler())
+            .subscribe({
+                _listReport.value = DevState.success(it.data)
+            },{
+                if (it is HttpException) {
+                    val errorBody = it.response()?.errorBody()?.string()
+                    if (errorBody != null) {
+                        _listReport.value = DevState.Failure(null, errorBody)
+                        messageError.value = errorBody
+                    }
+                } else {
+                    val errorMessage = it.localizedMessage
+                    _listReport.value = DevState.fail(null, errorMessage)
+                    messageError.value = errorMessage
+                }
+            }).let(disposable::add)
     }
 
     fun addAllReport(data: List<HistoryReportModel>) {
@@ -60,5 +109,10 @@ class ReportViewModel(disposable: CompositeDisposable, private val repo: MainRep
             withContext(Dispatchers.IO) { repo.addAllReport(data) }
             _createAllReportResult.value = DevState.success(data)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.dispose()
     }
 }

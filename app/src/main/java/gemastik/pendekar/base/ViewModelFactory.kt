@@ -27,7 +27,7 @@ class ViewModelFactory : ViewModelProvider.Factory {
             modelClass.isAssignableFrom(DevViewModel::class.java) -> DevViewModel(disposable) as T
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(disposable, restRepository) as T
             modelClass.isAssignableFrom(CCTVViewModel::class.java) -> CCTVViewModel(disposable, restRepository) as T
-            modelClass.isAssignableFrom(ReportViewModel::class.java) -> ReportViewModel(disposable, repository) as T
+            modelClass.isAssignableFrom(ReportViewModel::class.java) -> ReportViewModel(disposable, repository, restRepository) as T
             modelClass.isAssignableFrom(SafeRouteViewModel::class.java) -> SafeRouteViewModel(disposable, repository, restRepository) as T
             modelClass.isAssignableFrom(ListCCTVViewModel::class.java) -> ListCCTVViewModel(disposable, restRepository) as T
             modelClass.isAssignableFrom(CCTVCameraViewModel::class.java) -> CCTVCameraViewModel(disposable, restRepository) as T

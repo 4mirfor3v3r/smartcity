@@ -1,17 +1,18 @@
 package gemastik.pendekar.ui.main.home.self_report
 
 import android.annotation.SuppressLint
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import gemastik.pendekar.R
 import gemastik.pendekar.data.model.HistoryReportModel
 import gemastik.pendekar.databinding.ItemHistoryReportBinding
-import gemastik.pendekar.utils.ReportStatus
-import java.util.ArrayList
+import gemastik.pendekar.utils.logError
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class HistoryReportAdapter : RecyclerView.Adapter<HistoryReportAdapter.ViewHolder>() {
     val listData = ArrayList<HistoryReportModel>()
@@ -47,17 +48,28 @@ class HistoryReportAdapter : RecyclerView.Adapter<HistoryReportAdapter.ViewHolde
     inner class ViewHolder(private val binding: ItemHistoryReportBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: HistoryReportModel, position: Int) {
             with(binding){
+                if (!data.senderName.isNullOrEmpty()){
+                    tvName.text = data.senderName
+                }else{
+                    tvName.text = "Anonymous"
+                }
                 tvTitle.text = data.reportTitle
                 tvLocation.text = data.reportAddress
-                tvDate.text = data.reportDate
 
-                tvStatus.text = data.reportStatus?.title
-                when(data.reportStatus){
-                    ReportStatus.SUCCESS -> tvStatus.setTextColor(ContextCompat.getColor(binding.root.context,R.color.green))
-                    ReportStatus.FAILURE -> tvStatus.setTextColor(ContextCompat.getColor(binding.root.context,R.color.primary))
-                    ReportStatus.PROCESS -> tvStatus.setTextColor(ContextCompat.getColor(binding.root.context,R.color.blue))
-                    else -> tvStatus.setTextColor(ContextCompat.getColor(binding.root.context,R.color.blue))
+                try {
+                    val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+                    val mDate = formatter.parse(data.reportDate)
+                    val formatter2 = SimpleDateFormat("yyyy MMM dd", Locale.getDefault())
+                    tvDate.text = formatter2.format(mDate)
+                } catch (e: Exception){
+                    logError(e.toString())
                 }
+
+                val imageByteArray: ByteArray = Base64.decode(data.image, Base64.DEFAULT)
+                Glide.with(binding.root.context)
+                    .asBitmap()
+                    .load(imageByteArray)
+                    .into(ivImage)
             }
         }
     }

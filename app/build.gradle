@@ -27,7 +27,7 @@ android {
         versionName "1.0"
 
         buildConfigField "String", "BASE_URL", "\"https://router.hereapi.com/v8/\""
-        buildConfigField "String", "REST_BASE_URL", "\"http:sinar.versa.my.id/\""
+        buildConfigField "String", "REST_BASE_URL", "\"http://10.0.2.2:8888/\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -97,4 +97,6 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
     implementation("com.google.firebase:firebase-messaging-ktx")
+
+    implementation("com.github.leandroborgesferreira:loading-button-android:2.3.0")
 }

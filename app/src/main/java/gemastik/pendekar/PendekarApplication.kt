@@ -8,6 +8,7 @@ import android.content.Context
 import android.media.RingtoneManager
 import android.os.Build
 import android.support.multidex.MultiDexApplication
+import com.google.firebase.messaging.FirebaseMessaging
 import gemastik.pendekar.utils.ApplicationContext
 
 const val CHANNEL_ID = "PKMKC-SINAR-Schedule"
@@ -25,6 +26,7 @@ class PendekarApplication: MultiDexApplication() {
             createNotificationChannel()
         }
         ApplicationContext.getInstance().init(applicationContext)
+        FirebaseMessaging.getInstance().subscribeToTopic("pkmkc-danger-topic")
     }
 
     @SuppressLint("NewApi")

@@ -5,9 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="6dp"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="16dp"
     app:cardElevation="4dp"
-    android:layout_marginHorizontal="24dp"
+    android:layout_marginHorizontal="16dp"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,14 +17,26 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tvName"
             style="@style/Poppins.600.Black.12sp"
             android:layout_width="0dp"
             android:layout_marginEnd="12dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@+id/tvStatus"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:text="Agus Sudaharto" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/Poppins.600.Black.12sp"
+            android:layout_width="0dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
             tools:text="Motor Berkerumunan" />
 
         <TextView
@@ -34,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="12dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvStatus"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
             tools:text="Jl. Soekarno Hatta" />
@@ -46,23 +58,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvStatus"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvLocation"
             tools:text="10 Oktober 2022" />
 
-        <TextView
-            style="@style/Poppins.12sp"
-            android:textStyle="bold"
-            android:id="@+id/tvStatus"
-            android:textColor="@color/green"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Laporan\nberhasil" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivImage"
+            app:layout_constraintTop_toBottomOf="@id/tvDate"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            tools:src="@tools:sample/backgrounds/scenic"
+            android:layout_height="150dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
